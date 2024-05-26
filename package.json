@@ -1,11 +1,18 @@
 {
   "name": "keydash",
   "version": "0.0.1",
+  "type": "module",
+  "engines": {
+    "node": "20"
+  },
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build:next": "next build",
+    "build:payload": "tsc -p tsconfig.payload.json && tsc-alias -p tsconfig.payload.json",
+    "build": "yarn build:next && yarn build:payload",
     "payload": "payload",
-    "start": "cross-env NODE_ENV=production payload migrate && next start",
+    "start": "payload migrate && next start",
     "lint": "next lint",
     "generate:types": "payload generate:types"
   },
@@ -53,6 +60,7 @@
     "prettier-plugin-organize-imports": "^3.2.4",
     "prettier-plugin-tailwindcss": "^0.5.14",
     "tailwindcss": "^3.4.1",
+    "tsc-alias": "^1.8.10",
     "typescript": "^5"
   }
 }

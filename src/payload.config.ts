@@ -17,5 +17,6 @@ export default buildConfig({
   db: postgresAdapter({
     idType: "uuid",
     pool: { connectionString: process.env.DATABASE_URI || "" },
+    migrationDir: path.resolve(dirname, "migrations"),
   }),
 });

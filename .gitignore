@@ -13,8 +13,8 @@
 /.next/
 /out/
 
-# production
-/build
+# payloadcms
+.payload/
 
 # misc
 .DS_Store
