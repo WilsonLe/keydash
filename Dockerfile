@@ -31,6 +31,7 @@ COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/.payload ./.payload
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/tsconfig.json ./tsconfig.json
+COPY --from=builder /app/next.config.mjs ./next.config.mjs
 COPY --from=dependency /app/node_modules ./node_modules
 EXPOSE 3000
 CMD ["yarn", "start"]
