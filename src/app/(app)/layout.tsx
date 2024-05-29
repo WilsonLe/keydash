@@ -11,8 +11,8 @@ const fontSans = FontSans({
 });
 
 export const metadata: Metadata = {
-  title: "Dashboard",
-  description: "Yet another dashboard that should just be bookmarks",
+  title: "Keydash",
+  description: "Keyboard-centric dashboard/bookmark manager",
 };
 
 export default function RootLayout({

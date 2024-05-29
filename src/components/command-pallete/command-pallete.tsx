@@ -11,9 +11,9 @@ import {
 } from "@/components/ui/command";
 import { fetchBookmarks } from "@/lib/fetch-bookmarks";
 import { useBaseKey } from "@/lib/use-base-key";
-import { debounce } from "@/lib/utils";
+import useDebounce from "@/lib/use-debouce";
 import { Bookmark as TBookmark } from "@/payload-types";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const useOpen = () => {
   const [openAddBookmarkDialog, setOpenAddBookmarkDialog] = useState(false);
@@ -50,19 +50,14 @@ export function CommandPallete() {
     TBookmark[] | null | undefined
   >(undefined);
 
-  const _fetchBookmarks = useCallback(async () => {
-    const _searchResults = await fetchBookmarks(searchInput);
-    setSearchResult(_searchResults);
+  const deboucedSearchResult = useDebounce(async (searchInput) => {
+    const bookmarks = await fetchBookmarks(searchInput);
+    if (bookmarks !== null) return bookmarks;
+  }, 300);
+  useEffect(() => {
+    deboucedSearchResult(searchInput);
   }, [searchInput]);
 
-  const debouncedFetchBookmarks = useCallback(
-    debounce(_fetchBookmarks, 300),
-    [], // eslint-disable-line react-hooks/exhaustive-deps
-  );
-
-  useEffect(() => {
-    debouncedFetchBookmarks();
-  }, [searchInput, _fetchBookmarks]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <>
       <p className="text-sm text-muted-foreground">
